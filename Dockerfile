@@ -1,8 +1,5 @@
 FROM maven:3.8.1-jdk-11-slim as build
 
-ARG JAVA_OPTS
-ENV JAVA_OPTS=$JAVA_OPTS
-
 WORKDIR /app
 
 COPY pom.xml .
@@ -18,4 +15,4 @@ COPY --from=build ${JAR_FILE} app.jar
 
 EXPOSE 9090
 
-ENTRYPOINT exec java $JAVA_OPTS -jar app.jar
+ENTRYPOINT exec java -jar app.jar
