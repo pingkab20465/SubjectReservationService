@@ -25,7 +25,7 @@ jobs:
       run: mvn -B package --file pom.xml
   
   build-image:
-
+    needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -43,6 +43,8 @@ jobs:
         images: ghcr.io/bazsup/subject-api
         tags: |
           type=sha
+        flavor: |
+          latest=${{ github.event_name == 'push' }}
 
     - name: Build and push
       uses: docker/build-push-action@v2
@@ -51,3 +53,28 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ${{ steps.meta.outputs.tags }}
+
+    - name: Publish compose file
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SSH_HOSTNAME }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        source: "./docker-compose.prod.yml"
+        target: "."
+  
+  deploy:
+    needs: build-image
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+    - name: Run application
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOSTNAME }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          docker-compose -f docker-compose.prod.yml pull
+          docker-compose -f docker-compose.prod.yml up --build -d
