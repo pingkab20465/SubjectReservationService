@@ -36,6 +36,6 @@ public class SubjectReservationController {
     @GetMapping("/test")
     @ResponseStatus(HttpStatus.OK)
     public String test() {
-        return "Hello, Test pipelineupdate.\n";
+        return "Hello, Test.";
     }
 }
