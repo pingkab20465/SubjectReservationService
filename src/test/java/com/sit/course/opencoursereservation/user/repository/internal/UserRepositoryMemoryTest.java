@@ -27,6 +27,6 @@ class UserRepositoryMemoryTest {
 
     @Test
     void testFindUserByIdWithNotFound() {
-        Assertions.assertThrows(EntityNotFoundException.class, () -> underTest.findUserById(1L));
+        Assertions.assertThrows(EntityNotFoundException.class, () -> underTest.findUserById(101L));
     }
 }
