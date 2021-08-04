@@ -44,9 +44,6 @@ jobs:
         tags: |
           type=sha
 
-    - name: Echo
-      run: echo ${{ steps.meta.outputs.labels }}
-
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
@@ -54,4 +51,3 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
