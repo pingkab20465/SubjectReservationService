@@ -1,6 +1,11 @@
 package com.sit.course.opencoursereservation.subject_reservation;
 
+import java.util.List;
+import java.util.Map;
+
+import com.sit.course.opencoursereservation.subject_reservation.model.Subject;
 import com.sit.course.opencoursereservation.subject_reservation.model.SubjectReservation;
+import com.sit.course.opencoursereservation.subject_reservation.repository.SubjectRepository;
 import com.sit.course.opencoursereservation.user.model.User;
 import com.sit.course.opencoursereservation.subject_reservation.service.SubjectReservationService;
 import com.sit.course.opencoursereservation.user.repository.UserRepository;
@@ -14,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 public class SubjectReservationController {
     @Autowired
     private SubjectReservationService subjectReservationService;
+
+    @Autowired
+    private SubjectRepository subjectRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -31,6 +39,12 @@ public class SubjectReservationController {
         User mockUser = userRepository.findUserById(1L);
 
         return subjectReservationService.reserveSubject(subjectId, mockUser);
+    }
+
+    @GetMapping("/subjects")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Subject> listAllSubjects() {
+        return subjectRepository.listAllSubjects();
     }
 
     @GetMapping("/test")
