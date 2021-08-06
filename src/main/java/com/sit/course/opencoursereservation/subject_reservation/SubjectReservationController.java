@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Setter
 @RestController
+@CrossOrigin(origins = "*")
 public class SubjectReservationController {
     @Autowired
     private SubjectReservationService subjectReservationService;
