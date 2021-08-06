@@ -6,6 +6,7 @@ import com.sit.course.opencoursereservation.subject_reservation.service.SubjectR
 import com.sit.course.opencoursereservation.user.repository.UserRepository;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,9 @@ public class SubjectReservationController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Value("${name:default name}")
+    private String name;
 
     @PostMapping("/subject/{subjectId}/reserve")
     @ResponseStatus(HttpStatus.OK)
@@ -36,6 +40,6 @@ public class SubjectReservationController {
     @GetMapping("/test")
     @ResponseStatus(HttpStatus.OK)
     public String test() {
-        return "Hello, Test.";
+        return String.format("Hello, %s.", name);
     }
 }
