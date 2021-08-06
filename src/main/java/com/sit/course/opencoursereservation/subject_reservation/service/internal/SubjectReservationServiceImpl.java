@@ -1,5 +1,7 @@
 package com.sit.course.opencoursereservation.subject_reservation.service.internal;
 
+import java.util.List;
+
 import com.sit.course.opencoursereservation.subject_reservation.model.Subject;
 import com.sit.course.opencoursereservation.subject_reservation.model.SubjectReservation;
 import com.sit.course.opencoursereservation.subject_reservation.repository.SubjectReservationRepository;
@@ -33,5 +35,11 @@ public class SubjectReservationServiceImpl implements SubjectReservationService 
 
         SubjectReservation savedReservation = subjectReservationRepository.save(new SubjectReservation(subject, user));
         return savedReservation;
+    }
+
+    @Override
+    public List<SubjectReservation> getUserReserveSubjectList(User mockUser) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
