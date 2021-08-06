@@ -11,7 +11,7 @@
   - [Docker tag](#docker-tag)
   - [Docker compose for deployment](#docker-compose-for-deployment)
 - [Github Actions](#github-actions)
-  - [Build & Deploy script](#build-&-deploy-script)
+  - [Build & Deploy script](#build--deploy-script)
 
 ___
 
